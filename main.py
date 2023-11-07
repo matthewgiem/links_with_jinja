@@ -15,9 +15,14 @@ app = Flask(__name__)
 def home():
     return render_template("index.html", all_posts=post_objects)
 
-@app.route('/')
-def show_blog():
-    pass
+@app.route('/post/<int:blog_id>')
+def show_blog(blog_id):
+    blog = None
+    for blog_post in post_objects:
+        if blog_post.id == blog_id:
+            blog = blog_post
+    return render_template("post.html", post=blog)
+    
 
 if __name__ == "__main__":
     app.run(debug=True)
